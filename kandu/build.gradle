@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 22
     buildToolsVersion "19.1.0"
 
     defaultConfig {
         applicationId "com.inomma.kandu"
-        minSdkVersion 14
-        targetSdkVersion 18
+        minSdkVersion 19
+        targetSdkVersion 19
 
         testApplicationId "com.inomma.kandu.test"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
@@ -32,4 +32,6 @@ dependencies {
     compile files('libs/androidasync-1.2.4.jar')
     compile files('libs/ion-1.2.4.jar')
     compile files('libs/universal-image-loader-1.9.1.jar')
+    testCompile('junit:junit:4.12')
+    testCompile('org.mockito:mockito-core:1.9.5')
 }

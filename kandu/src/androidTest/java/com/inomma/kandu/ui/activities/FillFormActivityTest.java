@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.inomma.kandu.ui.activities.test;
+package com.inomma.kandu.ui.activities;
 
 import static org.junit.Assert.*;
 

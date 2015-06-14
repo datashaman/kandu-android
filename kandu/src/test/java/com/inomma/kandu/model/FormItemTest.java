@@ -1,20 +1,19 @@
 /**
  * 
  */
-package com.inomma.kandu.model.test;
-
-import static org.junit.Assert.*;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import org.junit.Test;
+package com.inomma.kandu.model;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.inomma.kandu.model.FormItem;
+import org.junit.Test;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 
 
 /**
@@ -24,7 +23,7 @@ import com.inomma.kandu.model.FormItem;
 public class FormItemTest {
 
 	@Test
-	public void testChoicesArray() {
+	public void testChoicesArray() throws JSONException {
 		JSONObject config = new JSONObject();
 		
 		String[] items = { "a", "a b", "a_b", "a__b" };
@@ -39,7 +38,7 @@ public class FormItemTest {
 	}
 
 	@Test
-	public void testChoicesObject() {
+	public void testChoicesObject() throws JSONException {
 		Map<String, String> map = new HashMap<String, String>();
 		
 		map.put("a", "A");
