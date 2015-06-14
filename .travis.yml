@@ -1,8 +1,8 @@
 language: android
 android:
     components:
-        - build-tools-19.1.0
-        - android-19
+        - build-tools-22.1.2
+        - android-21
         - extra-google-google_play_services
-        - addon-google_apis-google-19
-        - sys-img-x86-android-19
+        - addon-google_apis-google-21
+        - sys-img-x86-android-21
