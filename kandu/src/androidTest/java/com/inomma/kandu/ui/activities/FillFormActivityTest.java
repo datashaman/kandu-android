@@ -3,41 +3,28 @@
  */
 package com.inomma.kandu.ui.activities;
 
-import static org.junit.Assert.*;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.test.ActivityInstrumentationTestCase2;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
-import java.io.File;
+import com.inomma.kandu.model.Config;
+import com.inomma.kandu.model.UserForm;
+import com.inomma.kandu.model.UserFormsHolder;
+import com.inomma.kandu.ui.views.FormItemSingleChoiceView;
+import com.inomma.kandu.ui.views.FormView;
+
+import org.json.JSONArray;
+import org.junit.Test;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import org.apache.commons.io.IOUtils;
-import org.json.JSONArray;
-import org.junit.Test;
-
-import com.inomma.kandu.model.Config;
-import com.inomma.kandu.model.FormSubmissionItem;
-import com.inomma.kandu.model.UserForm;
-import com.inomma.kandu.model.UserFormsHolder;
-import com.inomma.kandu.ui.activities.FillFormActivity;
-import com.inomma.kandu.ui.views.FormItemChoiceView;
-import com.inomma.kandu.ui.views.FormItemSingleChoiceView;
-import com.inomma.kandu.ui.views.FormItemView;
-import com.inomma.kandu.ui.views.FormView;
-import com.nostra13.universalimageloader.utils.L;
-
-import android.R;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.test.ActivityInstrumentationTestCase2;
-import android.test.TouchUtils;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.View;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
+import static org.junit.Assert.*;
 
 /**
  * @author marlinf
