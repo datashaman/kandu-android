@@ -52,7 +52,7 @@ public class FillFormActivityTest extends ActivityInstrumentationTestCase2<FillF
 		Context context = getInstrumentation().getContext();
 		Resources resources = context.getResources();
 		
-		InputStream stream = resources.openRawResource(com.inomma.kandu.test.R.raw.config);
+		InputStream stream = resources.openRawResource(com.inomma.kandu.R.raw.config);
 		String json = convertStreamToString(stream);
 		
 		JSONArray forms = new JSONArray(json);

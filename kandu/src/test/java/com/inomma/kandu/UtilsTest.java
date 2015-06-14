@@ -5,6 +5,8 @@ package com.inomma.kandu;
 
 import android.util.Log;
 
+import com.google.android.gms.ads.internal.request.StringParcel;
+
 import junit.framework.Assert;
 
 import static org.mockito.Mockito.*;
@@ -14,8 +16,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Test;
 
+import java.lang.RuntimeException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Iterator;
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
@@ -33,10 +38,12 @@ public class UtilsTest {
 	public void testMapFromJsonArray() throws JSONException {
         JSONArray array = mock(JSONArray.class);
 
-        array.put("a");
-        array.put("a b");
-        array.put("a_b");
-        array.put("a__b");
+        when(array.length()).thenReturn(4);
+
+        when(array.getString(0)).thenReturn("a");
+        when(array.getString(1)).thenReturn("a b");
+        when(array.getString(2)).thenReturn("a_b");
+        when(array.getString(3)).thenReturn("a__b");
 
         Map<String, String> map = Utils.mapFromJsonArray(array);
 	}
@@ -47,27 +54,24 @@ public class UtilsTest {
 	 */
 	@Test
 	public void testMapFromJsonObject() throws JSONException {
-		Map<String, String> values = new HashMap<String, String>();
+        JSONArray names = mock(JSONArray.class);
 
-        values.put("a", "A");
-		values.put("a b", "A B");
-		values.put("a_b", "A_B");
-		values.put("a__b", "A__B");
-		
-		JSONObject object = mock(JSONObject.class);
+        when(names.length()).thenReturn(4);
 
-        object.put("a", "A");
-        object.put("a b", "A B");
-        object.put("a_b", "A_B");
-        object.put("a__b", "A__B");
+        when(names.get(0)).thenReturn("a");
+        when(names.get(1)).thenReturn("a b");
+        when(names.get(2)).thenReturn("a_b");
+        when(names.get(3)).thenReturn("a__b");
 
-        System.out.println(object);
+        JSONObject object = mock(JSONObject.class);
 
-        assertNotNull("object not null", object);
+        when(object.names()).thenReturn(names);
+
+        when(object.getString("a")).thenReturn("A");
+        when(object.getString("a b")).thenReturn("A B");
+        when(object.getString("a_b")).thenReturn("A_B");
+        when(object.getString("a__b")).thenReturn("A__B");
 
         Map<String, String> map = Utils.mapFromJsonObject(object);
-		
-		assertEquals("The output should equals the input", values, map);
-		assertNotSame("The output should not be the same as the input", values, map);
 	}
 }

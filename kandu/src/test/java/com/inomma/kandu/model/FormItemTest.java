@@ -7,6 +7,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import static org.mockito.Mockito.*;
+
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -22,42 +24,61 @@ import static org.junit.Assert.assertNotSame;
  */
 public class FormItemTest {
 
-	@Test
-	public void testChoicesArray() throws JSONException {
-		JSONObject config = new JSONObject();
-		
-		String[] items = { "a", "a b", "a_b", "a__b" };
-		JSONArray choices = new JSONArray(items);
-		
-		config.put("name", "field");
-		config.put("type", "choice");
-		config.put("choices", choices);
-		
-		FormItem item = new FormItem(config);
-		System.out.println(item.getChoices());
-	}
+    @Test
+    public void testChoicesArray() throws JSONException {
+        JSONObject config = mock(JSONObject.class);
+        JSONArray choices = mock(JSONArray.class);
 
-	@Test
-	public void testChoicesObject() throws JSONException {
-		Map<String, String> map = new HashMap<String, String>();
-		
-		map.put("a", "A");
-		map.put("a b", "A B");
-		map.put("a_b", "A_B");
-		map.put("a__b", "A__B");
-		
-		JSONObject choices = new JSONObject(map);
-		JSONObject config = new JSONObject();
-		
-		config.put("name", "field");
-		config.put("type", "choice");
-		config.put("choices", choices);
-		
-		FormItem item = new FormItem(config);
-		Map<String, String> output = item.getChoices();
+        when(choices.length()).thenReturn(4);
 
-		assertEquals("The output should equals the input", output, map);
-		assertNotSame("The output should not be the same as the input", output, map);
-	}
+        when(choices.getString(0)).thenReturn("a");
+        when(choices.getString(1)).thenReturn("a b");
+        when(choices.getString(2)).thenReturn("a_b");
+        when(choices.getString(3)).thenReturn("a__b");
+
+        when(config.getString("name")).thenReturn("field");
+        when(config.getString("type")).thenReturn("choice");
+        when(config.has("choices")).thenReturn(true);
+        when(config.getJSONArray("choices")).thenReturn(choices);
+        when(config.getJSONObject("choices")).thenThrow(JSONException.class);
+
+        FormItem item = new FormItem(config);
+        Map<String, String> output = item.getChoices();
+
+        System.out.println(output);
+    }
+
+    @Test
+    public void testChoicesObject() throws JSONException {
+        JSONObject config = mock(JSONObject.class);
+        JSONArray names = mock(JSONArray.class);
+
+        when(names.length()).thenReturn(4);
+
+        when(names.get(0)).thenReturn("a");
+        when(names.get(1)).thenReturn("a b");
+        when(names.get(2)).thenReturn("a_b");
+        when(names.get(3)).thenReturn("a__b");
+
+        JSONObject choices = mock(JSONObject.class);
+
+        when(choices.names()).thenReturn(names);
+
+        when(choices.getString("a")).thenReturn("A");
+        when(choices.getString("a b")).thenReturn("A B");
+        when(choices.getString("a_b")).thenReturn("A_B");
+        when(choices.getString("a__b")).thenReturn("A__B");
+
+        when(config.getString("name")).thenReturn("field");
+        when(config.getString("type")).thenReturn("choice");
+        when(config.has("choices")).thenReturn(true);
+        when(config.getJSONArray("choices")).thenThrow(JSONException.class);
+        when(config.getJSONObject("choices")).thenReturn(choices);
+
+        FormItem item = new FormItem(config);
+        Map<String, String> output = item.getChoices();
+
+        System.out.println(output);
+    }
 
 }

@@ -1,5 +1,19 @@
 package com.inomma.kandu;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
+
+import com.inomma.kandu.model.FormListCategory;
+import com.inomma.kandu.model.FormListItem;
+import com.inomma.kandu.model.UserForm;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,26 +21,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
-import com.inomma.kandu.model.FormListCategory;
-import com.inomma.kandu.model.FormListItem;
-import com.inomma.kandu.model.UserForm;
-import com.koushikdutta.async.Util;
 
 public class Utils {
 
@@ -55,10 +54,10 @@ public class Utils {
 
 	public static Map<String, String> mapFromJsonObject(JSONObject object) throws JSONException {
 		Map<String, String> map = new HashMap<String, String>();
-		Iterator<String> values = object.keys();
+		JSONArray names = object.names();
 		
-		while(values.hasNext()) {
-			String value = (String) values.next();
+		for(int x = 0, l = names.length(); x < l; x++) {
+			String value = (String) names.get(x);
 			String text = object.getString(value);
 			map.put(value, text);
 		}
