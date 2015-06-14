@@ -5,8 +5,6 @@ package com.inomma.kandu;
 
 import android.util.Log;
 
-import com.google.android.gms.ads.internal.request.StringParcel;
-
 import junit.framework.Assert;
 
 import static org.mockito.Mockito.*;
