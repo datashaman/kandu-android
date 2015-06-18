@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.TouchUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -96,6 +97,7 @@ public class FillFormActivityTest extends ActivityInstrumentationTestCase2<FillF
 		/** TODO: Get this working */
 		TouchUtils.clickView(this, choiceView);
 		TouchUtils.clickView(this, choiceView.getChildAt(2));
+
 		assertEquals("Should be a when set to a", "a", choiceView.getValue());
 	}
 }
