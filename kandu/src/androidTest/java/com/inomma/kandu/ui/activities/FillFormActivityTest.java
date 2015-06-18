@@ -94,11 +94,8 @@ public class FillFormActivityTest extends ActivityInstrumentationTestCase2<FillF
 		assertEquals("Second key should be a", "a", adapter.getItem(2));
 		
 		/** TODO: Get this working */
-
-		/*
 		TouchUtils.clickView(this, choiceView);
 		TouchUtils.clickView(this, choiceView.getChildAt(2));
 		assertEquals("Should be a when set to a", "a", choiceView.getValue());
-		*/
 	}
 }
