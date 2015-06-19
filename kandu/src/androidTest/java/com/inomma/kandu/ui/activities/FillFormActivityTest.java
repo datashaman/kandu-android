@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.suitebuilder.annotation.MediumTest;
 import android.test.TouchUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -18,7 +19,6 @@ import com.inomma.kandu.ui.views.FormItemSingleChoiceView;
 import com.inomma.kandu.ui.views.FormView;
 
 import org.json.JSONArray;
-import org.junit.Test;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -32,8 +32,7 @@ import static org.junit.Assert.*;
  *
  */
 public class FillFormActivityTest extends ActivityInstrumentationTestCase2<FillFormActivity> {
-	private FillFormActivity activity;
-	private FormView mainView;
+    private FormView mainView;
 	
 	public FillFormActivityTest() {
 		super(FillFormActivity.class);
@@ -77,12 +76,12 @@ public class FillFormActivityTest extends ActivityInstrumentationTestCase2<FillF
 		
 		setActivityInitialTouchMode(true);
 		setActivityIntent(intent);
-		
-		activity = getActivity();
+
+        FillFormActivity activity = getActivity();
 		mainView = activity.getMainView();
 	}
 	
-	@Test
+	@MediumTest
 	public void testViewItems()
 	{
 		FormItemSingleChoiceView choiceView = (FormItemSingleChoiceView) mainView.getViews().get("Array_config");
@@ -94,7 +93,6 @@ public class FillFormActivityTest extends ActivityInstrumentationTestCase2<FillF
 		assertEquals("First key should be a__b", "a__b", adapter.getItem(1));
 		assertEquals("Second key should be a", "a", adapter.getItem(2));
 		
-		/** TODO: Get this working */
 		TouchUtils.clickView(this, choiceView);
 		TouchUtils.clickView(this, choiceView.getChildAt(2));
 

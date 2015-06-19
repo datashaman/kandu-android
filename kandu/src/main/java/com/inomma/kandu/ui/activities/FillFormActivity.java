@@ -1,11 +1,5 @@
 package com.inomma.kandu.ui.activities;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -33,17 +27,17 @@ import com.inomma.kandu.model.UserForm;
 import com.inomma.kandu.model.UserFormsHolder;
 import com.inomma.kandu.server.FormSubmitter;
 import com.inomma.kandu.server.FormSubmitter.FormSubmissionListener;
-import com.inomma.kandu.server.request.GetSubmissionsRequest;
-import com.inomma.kandu.server.responses.GetSubmissionsResponse;
 import com.inomma.kandu.sqlite.SubmissionsDataSource;
 import com.inomma.kandu.ui.views.FormView;
 
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class FillFormActivity extends Activity {
-
 	private UserForm form;
-
 	private ViewGroup mainLayout;
-
 	private FormSubmission formSubmission;
 	private List<FormView> inlineForms = new ArrayList<FormView>();
 	private UserForm inlineForm;
