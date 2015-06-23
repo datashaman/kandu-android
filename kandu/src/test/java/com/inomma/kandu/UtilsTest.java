@@ -5,9 +5,12 @@ package com.inomma.kandu;
 
 import android.util.Log;
 
-import junit.framework.Assert;
+import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
-import static org.mockito.Mockito.*;
+import junit.framework.Assert;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,6 +30,8 @@ import static org.junit.Assert.*;
  * @author marlinf
  *
  */
+@RunWith(RobolectricTestRunner.class)
+@Config(manifest = "src/main/AndroidManifest.xml", sdk = 19)
 public class UtilsTest {
 
 	/**
@@ -35,14 +40,8 @@ public class UtilsTest {
 	 */
 	@Test
 	public void testMapFromJsonArray() throws JSONException {
-        JSONArray array = mock(JSONArray.class);
-
-        when(array.length()).thenReturn(4);
-
-        when(array.getString(0)).thenReturn("a");
-        when(array.getString(1)).thenReturn("a b");
-        when(array.getString(2)).thenReturn("a_b");
-        when(array.getString(3)).thenReturn("a__b");
+	    String[] items = { "a", "a b", "a_b", "a__b" };
+        JSONArray array = new JSONArray(items);
 
         Map<String, String> map = Utils.mapFromJsonArray(array);
 	}
@@ -53,23 +52,11 @@ public class UtilsTest {
 	 */
 	@Test
 	public void testMapFromJsonObject() throws JSONException {
-        JSONArray names = mock(JSONArray.class);
-
-        when(names.length()).thenReturn(4);
-
-        when(names.get(0)).thenReturn("a");
-        when(names.get(1)).thenReturn("a b");
-        when(names.get(2)).thenReturn("a_b");
-        when(names.get(3)).thenReturn("a__b");
-
-        JSONObject object = mock(JSONObject.class);
-
-        when(object.names()).thenReturn(names);
-
-        when(object.getString("a")).thenReturn("A");
-        when(object.getString("a b")).thenReturn("A B");
-        when(object.getString("a_b")).thenReturn("A_B");
-        when(object.getString("a__b")).thenReturn("A__B");
+        JSONObject object = new JSONObject();
+        object.put("a", "A");
+        object.put("a b", "A B");
+        object.put("a_b", "A_B");
+        object.put("a__b", "A__B");
 
         Map<String, String> map = Utils.mapFromJsonObject(object);
 	}

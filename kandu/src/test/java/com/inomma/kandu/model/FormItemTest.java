@@ -7,12 +7,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import static org.mockito.Mockito.*;
-
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.junit.runner.RunWith;
+import org.robolectric.Robolectric;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
@@ -22,25 +25,19 @@ import static org.junit.Assert.assertNotSame;
  * @author marlinf
  *
  */
+@RunWith(RoboelectricTestRunner.class)
+@Config(manifest = "src/main/AndroidMainfest.xml", sdk = 19)
 public class FormItemTest {
 
     @Test
     public void testChoicesArray() throws JSONException {
-        JSONObject config = mock(JSONObject.class);
-        JSONArray choices = mock(JSONArray.class);
+        String[] items = { "a", "a b", "a_b", "a__b" };
+        JSONArray choices = new JSONArray(items);
 
-        when(choices.length()).thenReturn(4);
-
-        when(choices.getString(0)).thenReturn("a");
-        when(choices.getString(1)).thenReturn("a b");
-        when(choices.getString(2)).thenReturn("a_b");
-        when(choices.getString(3)).thenReturn("a__b");
-
-        when(config.getString("name")).thenReturn("field");
-        when(config.getString("type")).thenReturn("choice");
-        when(config.has("choices")).thenReturn(true);
-        when(config.getJSONArray("choices")).thenReturn(choices);
-        when(config.getJSONObject("choices")).thenThrow(JSONException.class);
+        JSONObject config = new JSONObject();
+        config.put("name", "field");
+        config.put("type", "choice");
+        config.put("choices", choices);
 
         FormItem item = new FormItem(config);
         Map<String, String> output = item.getChoices();
@@ -50,30 +47,16 @@ public class FormItemTest {
 
     @Test
     public void testChoicesObject() throws JSONException {
-        JSONObject config = mock(JSONObject.class);
-        JSONArray names = mock(JSONArray.class);
+        JSONObject choices = new JSONObject();
+        choices.put("a", "A");
+        choices.put("a b", "A B");
+        choices.put("a_b", "A_B");
+        choices.put("a__b", "A__B");
 
-        when(names.length()).thenReturn(4);
-
-        when(names.get(0)).thenReturn("a");
-        when(names.get(1)).thenReturn("a b");
-        when(names.get(2)).thenReturn("a_b");
-        when(names.get(3)).thenReturn("a__b");
-
-        JSONObject choices = mock(JSONObject.class);
-
-        when(choices.names()).thenReturn(names);
-
-        when(choices.getString("a")).thenReturn("A");
-        when(choices.getString("a b")).thenReturn("A B");
-        when(choices.getString("a_b")).thenReturn("A_B");
-        when(choices.getString("a__b")).thenReturn("A__B");
-
-        when(config.getString("name")).thenReturn("field");
-        when(config.getString("type")).thenReturn("choice");
-        when(config.has("choices")).thenReturn(true);
-        when(config.getJSONArray("choices")).thenThrow(JSONException.class);
-        when(config.getJSONObject("choices")).thenReturn(choices);
+        JSONObject config = new JSONObject();
+        config.put("name", "field");
+        config.put("type", "choices");
+        config.put("choices", choices);
 
         FormItem item = new FormItem(config);
         Map<String, String> output = item.getChoices();

@@ -1,26 +1,21 @@
-/**
- * 
- */
 package com.inomma.kandu.ui.activities;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
-import org.robolectric.annotation.Config;
-
+import com.inomma.kandu.R;
 import java.util.Scanner;
+import android.test.ActivityInstrumentationTestCase2;
+import android.test.suitebuilder.annotation.LargeTest;
+import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static android.support.test.espresso.matcher.ViewMatchers.withText;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 
-import static org.junit.Assert.assertTrue;
+@LargeTest
+public class FillFormActivityTest extends ActivityInstrumentationTestCase2<FillFormActivity> {
+    public FillFormActivityTest() {
+        super(FillFormActivity.class);
+    }
 
-/**
- * @author marlinf
- *
- */
-
-@RunWith(RobolectricTestRunner.class)
-@Config(manifest = "src/main/AndroidManifest.xml", sdk = 19)
-public class FillFormActivityTest {
 	private String convertStreamToString(java.io.InputStream is) {
 	    Scanner s = new Scanner(is).useDelimiter("\\A");
 	    String string = s.hasNext() ? s.next() : "";
@@ -28,11 +23,13 @@ public class FillFormActivityTest {
 	    return string;
 	}
 
-    /*
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
+		getActivity();
+    }
 
+    /*
 		Context context = getInstrumentation().getContext();
 		Resources resources = context.getResources();
 		
@@ -84,8 +81,7 @@ public class FillFormActivityTest {
 	}
 	*/
 
-    @Test
-    public void testIsInstantiable() {
-        assertTrue(Robolectric.buildActivity(FillFormActivity.class).create().get() != null);
+    public void testIsNotNull() {
+        onView(withText("Hello world!")).check(matches(isDisplayed()));
     }
 }
